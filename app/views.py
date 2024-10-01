@@ -116,6 +116,9 @@ def display_accessrecords(request):
     accessrecords=AccessRecord.objects.all().order_by('-date')
     accessrecords=AccessRecord.objects.filter().order_by(Length('name').desc())
     accessrecords=AccessRecord.objects.exclude(id='2').order_by(Length('id').desc())
+    accessrecords=AccessRecord.objects.filter(date__lte='2024-12-12')
+    accessrecords=AccessRecord.objects.filter(author__startswith='P')
+    accessrecords=AccessRecord.objects.filter(author__regex='^P')
     d={'accessrecords':accessrecords}
     return render(request,'display_accessrecords.html',d)
 
