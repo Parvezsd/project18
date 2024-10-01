@@ -91,6 +91,10 @@ def display_topics(request):
     topics=Topic.objects.all().order_by(Length('topic_name'))
     topics=Topic.objects.filter(topic_name='koko').order_by('topic_name')
     topics=Topic.objects.exclude(topic_name='Ball')
+    topics=Topic.objects.filter(topic_name__startswith='b')
+    topics=Topic.objects.filter(topic_name__endswith='t')
+    topics=Topic.objects.filter(topic_name__contains='t')
+    topics=Topic.objects.filter(topic_name__regex='^C')
     d={'topics':topics}
     return render(request,'display_topics.html',d)
 # display_accessrecords
@@ -99,11 +103,19 @@ def display_webpages(request):
     webpages=Webpage.objects.filter(topic_name = 'Cricket').order_by(Length('name').desc())
     webpages=Webpage.objects.exclude(topic_name='Cricket')
     webpages=Webpage.objects.exclude(topic_name='cricket')
+    webpages=Webpage.objects.filter(name__startswith='P')
+    webpages=Webpage.objects.filter(name__endswith='z')
+    webpages=Webpage.objects.filter(url__startswith='h')
+    webpages=Webpage.objects.filter(url__endswith='in')
+    webpages=Webpage.objects.filter(name__regex='^j')
+
     d={'webpages':webpages}
     return render(request,'display_webpages.html',d)
 
 def display_accessrecords(request):
-    accessrecords=AccessRecord.objects.all()
+    accessrecords=AccessRecord.objects.all().order_by('-date')
+    accessrecords=AccessRecord.objects.filter().order_by(Length('name').desc())
+    accessrecords=AccessRecord.objects.exclude(id='2').order_by(Length('id').desc())
     d={'accessrecords':accessrecords}
     return render(request,'display_accessrecords.html',d)
 
