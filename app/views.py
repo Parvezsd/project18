@@ -123,4 +123,14 @@ def display_accessrecords(request):
     return render(request,'display_accessrecords.html',d)
 
 
-    
+def topicweb(request):
+    TWO=Topic.objects.prefetch_related('webpage_set').all()
+    d={'TWO':TWO}
+    return render(request,'topicweb.html',d)
+
+def webaccess(request):
+    WAO=Webpage.objects.prefetch_related('accessrecord_set').all()
+    WAO=Webpage.objects.prefetch_related('accessrecord_set').filter(name='roshan')
+    WAO=Webpage.objects.prefetch_related('accessrecord_set').filter(url='https://parvez.in')
+    d={'WAO':WAO}
+    return render(request,'webaccess.html',d)
